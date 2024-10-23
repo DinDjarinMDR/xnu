@@ -1,0 +1,9 @@
+{
+    "C_Cpp.default.compilerPath": "C:/msys64/clang64.exe",
+    "files.associations": {
+        "stdint.h": "c",
+        "mount.h": "c",
+        "vnode.h": "c",
+        "malloc.h": "c"
+    }
+}
