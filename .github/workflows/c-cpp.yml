@@ -15,6 +15,7 @@ jobs:
     env:
       SDKROOT: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
       ARCH_CONFIGS: X86_64
+      RC_DARWIN_KERNEL_VERSION: 20.6.0
       KERNEL_CONFIGS: DEVELOPMENT
       DSTROOT: /tmp/xnu-dst
 
@@ -34,11 +35,7 @@ jobs:
       
       - name: Build XNU kernel
         run: |
-          make SDKROOT=${SDKROOT} ARCH_CONFIGS=${ARCH_CONFIGS} KERNEL_CONFIGS=${KERNEL_CONFIGS} MAKEJOBS=-j4
-
-      - name: Install kernel
-        run: |
-          make install_kernels DSTROOT=${DSTROOT}
+          make SDKROOT=${SDKROOT} ARCH_CONFIGS=${ARCH_CONFIGS} KERNEL_CONFIGS=${KERNEL_CONFIGS} MAKEJOBS=-j4 RC_DARWIN_KERNEL_VERSION=${RC_DARWIN_KERNEL_VERSION}
       
       - name: Archive build artifacts
         uses: actions/upload-artifact@v4
