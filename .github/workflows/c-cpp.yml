@@ -25,7 +25,6 @@ jobs:
       - name: Install dependencies
         run: |
           brew install cmake
-          brew install cctools
 
       - name: Configure build flags
         run: |
