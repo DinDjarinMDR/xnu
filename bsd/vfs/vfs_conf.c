@@ -74,6 +74,8 @@
 
 #include <nfs/nfs_conf.h>
 
+#include <vfs/ramfs/ramfs_vfsops.h>
+
 /*
  * These define the root filesystem, device, and root filesystem type.
  */
@@ -97,6 +99,7 @@ extern  struct vfsops devfs_vfsops;
 extern  const struct vfsops routefs_vfsops;
 extern  struct vfsops nullfs_vfsops;
 extern struct vfsops bindfs_vfsops;
+extern struct vfsops ramfs_vfsops;
 
 #if MOCKFS
 extern  struct vfsops mockfs_vfsops;
@@ -117,6 +120,24 @@ int fstypenumstart = FT_BINDFS + 1;
  * Set up the filesystem operations for vnodes.
  */
 static struct vfstable vfstbllist[] = {
+// RAMFS
+#if RAMFS
+	{
+		.vfc_vfsops = &ramfs_vfsops,
+		.vfc_name = "ramfs",
+		.vfc_typenum = FT_RAMFS,
+		.vfc_refcount = 0,
+		.vfc_flags = MNT_LOCAL,
+		.vfc_mountroot = NULL,
+		.vfc_next = NULL,
+		.vfc_reserved1 = 0,
+		.vfc_reserved2 = 0,
+		.vfc_vfsflags = VFC_VFSGENERICARGS | VFC_VFS64BITREADY,
+		.vfc_descptr = NULL,
+		.vfc_descsize = 0,
+		.vfc_sysctl = NULL
+	},
+#endif
 	/* Device Filesystem */
 #if DEVFS
 #if CONFIG_MACF
